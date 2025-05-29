@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Price Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #87CEEB; /* Sky blue background */
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Sun animation */
+        .sun {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 100% 50%, #FFD700, transparent 30%);
+            border-radius: 50%;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            animation: sunMove 20s infinite linear;
+        }
+
+        @keyframes sunMove {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(200px);
+            }
+        }
+
+        /* Cloud animation */
+        .cloud {
+            background: #fff;
+            border-radius: 50px;
+            position: absolute;
+            top: 100px;
+            left: -100px;
+            width: 100px;
+            height: 50px;
+            animation: moveCloud 10s infinite linear;
+        }
+
+        @keyframes moveCloud {
+            0% {
+                transform: translateX(-100px);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Rain animation */
+        .raindrop {
+            background-color: #00f;
+            width: 2px;
+            height: 10px;
+            position: absolute;
+            bottom: 0;
+            animation: fall 0.5s infinite linear;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(200px);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-box {
+            margin: 10px 0;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Product Price Comparison</h1>
+        <div class="product-box">
+            <label for="product1">Product 1 Price: $</label>
+            <input type="number" id="product1">
+        </div>
+        <div class="product-box">
+            <label for="product2">Product 2 Price: $</label>
+            <input type="number" id="product2">
+        </div>
+        <button onclick="comparePrices()">Compare Prices</button>
+        <p id="result"></p>
+    </div>
+
+    <!-- Sun and cloud elements -->
+    <div class="sun"></div>
+    <div class="cloud"></div>
+
+    <!-- Rain animation -->
+    <script>
+        function createRaindrops() {
+            for (let i = 10; i <= 90; i += 10) {
+                let raindrop = document.createElement("div");
+                raindrop.classList.add("raindrop");
+                raindrop.style.left = `${i}%`;
+                document.body.appendChild(raindrop);
+            }
+        }
+
+        createRaindrops();
+
+        function comparePrices() {
+            var product1Price = parseFloat(document.getElementById("product1").value);
+            var product2Price = parseFloat(document.getElementById("product2").value);
+
+            if (!isNaN(product1Price) && !isNaN(product2Price)) {
+                let difference = Math.abs(product1Price - product2Price);
+                if (product1Price < product2Price) {
+                    document.getElementById("result").innerText = `Product 1 is cheaper by $${difference}`;
+                } else if (product1Price > product2Price) {
+                    document.getElementById("result").innerText = `Product 2 is cheaper by $${difference}`;
+                } else {
+                    document.getElementById("result").innerText = "Both products have the same price.";
+                }
+            } else {
+                document.getElementById("result").innerText = "Please enter valid prices.";
+            }
+        }
+    </script>
+
+</body>
+</html>
